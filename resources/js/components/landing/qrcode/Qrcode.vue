@@ -1,19 +1,19 @@
 <template>
-  <div id="contact" class="bg-[#e3f0fa]">
-    <div class="pt-2 pb-12">
+  <div id="contact" class="bg-white">
+    <div class="pb-12">
       <div class="w-full bg-brand-blue">
         <div class="mx-auto w-full max-w-[1320px] sm:px-5">
           <div class="w-full bg-brand-blue">
-            <div class="w-full bg-[#e3f0fa] sm:max-w-[550px]">
+            <div class="w-full bg-white sm:max-w-[550px]">
               <div class="grid grid-cols-12 items-center px-10">
                 <div class="col-span-12 px-2 sm:col-span-6 lg:px-0">
                   <a
-                    href="https://cores.sec.gov.ph:3000/scan/qrcontent?guid=455cfb73-7d57-4898-ac84-64ce5c0ad06a"
+                    href="https://cores.sec.gov.ph:3000/scan/qrcontent?guid=7a32697d-c93c-484c-a348-83e0a4fb0771"
                     target="_blank"
                   >
                     <img
-                      src="@/assets/epinoy/epinoy.png"
-                      class="mx-auto h-40 border-7 border-brand-blue p-1 transition-colors duration-300 hover:border-brand-red"
+                      src="@/assets/elis.png"
+                      class="mx-auto h-40 border-7 border-brand-blue p-1 transition-colors duration-300 hover:border-bright-green"
                       alt=""
                     />
                   </a>
