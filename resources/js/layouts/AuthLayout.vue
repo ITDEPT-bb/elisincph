@@ -1,59 +1,76 @@
 <script setup lang="ts">
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import logo from '@/assets/epinoy/nav_logo.png';
+import logo from '@/assets/loginlogo.png';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-// --- MAP IMPORTS ---
-
-interface FranchiseData {
-  id: number;
-  name: string;
-  region: string;
-  province: string;
-  city: string;
-}
-
-// --- CONSOLIDATED PROPS ---
-const props = defineProps<{
-  userTypes?: any[];
-  franchises?: FranchiseData[]; // Made optional to prevent crashes if undefined
-  userTypeName: string;
-  textOverlay?: string;
+defineProps<{
   title?: string;
-  description?: string;
   titleRegistration?: string;
-  goBackHomeButton?: boolean;
 }>();
 </script>
 
 <template>
   <div
-    class="flex min-h-svh flex-col items-center justify-center bg-muted bg-[url(@/assets/epinoy/home_bg.jpg)] bg-cover bg-center bg-no-repeat p-1.5 sm:p-6 md:p-10"
+    class="relative min-h-svh w-full bg-[url(@/assets/auth/loginbg.jpg)] bg-cover bg-center"
   >
-    <div class="w-full max-w-sm md:max-w-md">
-      <Card class="overflow-hidden border-0 p-0">
-        <CardContent class="border-0 p-0">
-          <div>
-            <Card class="border-0 p-0 shadow-none">
-              <img :src="logo" alt="Logo" class="mx-auto mt-8 h-14 w-auto" />
+    <!-- DESKTOP LEFT TEXT -->
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 hidden items-center px-16 lg:flex"
+    >
+      <h1
+        class="max-w-3xl text-4xl leading-tight font-bold text-white xl:text-5xl"
+      >
+        Powering Everyday Travel with Clean Electric Mobility
+      </h1>
+    </div>
 
-              <CardTitle
-                v-if="titleRegistration"
-                class="w-full bg-brand-red py-2 text-center text-3xl text-white"
-              >
-                {{ titleRegistration }}
-              </CardTitle>
+    <!-- RIGHT WHITE PANEL (DESKTOP) -->
+    <div
+      class="absolute inset-y-0 right-0 z-20 hidden w-[35%] items-center bg-white lg:flex"
+    >
+      <div class="mx-auto flex w-full max-w-md flex-col justify-center px-8">
+        <Card class="overflow-hidden rounded-2xl border-0 shadow-xl">
+          <CardHeader class="pt-6 text-center">
+            <img :src="logo" class="mx-auto h-14 w-auto" />
+            <CardTitle class="pt-4 text-2xl text-auth-blue">
+              {{ title }}
+            </CardTitle>
+          </CardHeader>
 
-              <CardTitle
-                v-else
-                class="w-full bg-brand-red py-2 text-center text-3xl text-white"
-                >{{ title }}</CardTitle
-              >
+          <CardTitle
+            v-if="titleRegistration"
+            class="bg-auth-blue py-2 text-center text-3xl text-white"
+          >
+            {{ titleRegistration }}
+          </CardTitle>
 
-              <CardContent class="px-3 md:px-8">
-                <slot />
-              </CardContent>
-            </Card>
-          </div>
+          <CardContent class="px-6 pb-6">
+            <slot />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+
+    <!-- MOBILE / TABLET CENTERED CARD -->
+    <div
+      class="relative z-30 flex min-h-svh items-center justify-center px-4 lg:hidden"
+    >
+      <Card class="w-full max-w-md rounded-2xl border-0 bg-white shadow-xl">
+        <CardHeader class="pt-6 text-center">
+          <img :src="logo" class="mx-auto h-14 w-auto" />
+          <CardTitle class="pt-4 text-2xl text-auth-blue">
+            {{ title }}
+          </CardTitle>
+        </CardHeader>
+
+        <CardTitle
+          v-if="titleRegistration"
+          class="bg-auth-blue py-2 text-center text-3xl text-white"
+        >
+          {{ titleRegistration }}
+        </CardTitle>
+
+        <CardContent class="px-6 pb-6">
+          <slot />
         </CardContent>
       </Card>
     </div>
