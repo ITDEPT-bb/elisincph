@@ -1,118 +1,114 @@
 <script setup lang="ts">
-import { usePageTheme } from '@/composables/usePageTheme';
-import HomeLayout from '@/layouts/HomeLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
-// landing page import
-import About from '@/components/landing/About.vue';
-import Banner from '@/components/landing/Banner.vue';
-import Contact from '@/components/landing/Contact.vue';
-import Services from '@/components/landing/Services.vue';
-import Careers from '@/components/landing/Careers.vue';
-import Franchise from '@/components/landing/Franchise.vue';
-import News from '@/components/landing/News.vue';
-import Sustainability from '@/components/landing/Sustainability.vue';
-import Technology from '@/components/landing/Technology.vue';
-import Testimonials from '@/components/landing/Testimonials.vue';
-import Partners from '@/components/landing/Partners.vue';
-import Solutions from '@/components/landing/Solutions.vue';
-import QRCode from '@/components/landing/QRCode.vue';
+import AboutUs from '@/components/landing/about-us/AboutUs.vue';
+import AboutUsCarousel from '@/components/landing/about-us/AboutUsCarousel.vue';
+import VisionMission from '@/components/landing/about-us/VisionMission.vue';
+import Contact from '@/components/landing/contact/Contact.vue';
+import Driver from '@/components/landing/driver/Driver.vue';
+import Footer from '@/components/landing/footer/Footer.vue';
+import Header from '@/components/landing/header/Header.vue';
+import Navbar from '@/components/landing/header/Navbar.vue';
+import Hero from '@/components/landing/hero/Hero.vue';
+import HowItWorks from '@/components/landing/how-it-works/HowItWorks.vue';
+import Passenger from '@/components/landing/passenger/Passenger.vue';
+import QrCode from '@/components/landing/qrcode/Qrcode.vue';
+import Services from '@/components/landing/services/Services.vue';
+import Team from '@/components/landing/team/Team.vue';
+import Technician from '@/components/landing/technician/Technician.vue';
+import Testimonials from '@/components/landing/testimonials/Testimonials.vue';
+import TestimonialsCarousel from '@/components/landing/testimonials/TestimonialsCarousel.vue';
+import { useAppearance } from '@/composables/useAppearance';
 
-// 1. Define the data structure
-interface FranchiseData {
-  id: number;
-  name: string;
-  region: string;
-  province: string;
-  city: string;
-}
+const { updateAppearance } = useAppearance();
 
 interface UserTypes {
   name: string;
   encrypted_id: string;
 }
 
-interface UserTypeFeedback {
-  id: number;
-  name: string;
-}
-
-interface Feedback {
-  id: number;
-  name: string;
-  avatar?: string | null;
-  rating: number;
-  description: string;
-  user_type: UserTypeFeedback | null;
-  created_at: string;
-}
-
-// 2. Define a SINGLE Props interface
 interface Props {
   userTypes: UserTypes[];
-  franchises: FranchiseData[];
-  feedbacks: Feedback[];
 }
 
-// 3. Destructure BOTH variables so they are available to your template
-const { userTypes, franchises, feedbacks } = defineProps<Props>();
+const { userTypes } = defineProps<Props>();
 
-// Force light mode
-usePageTheme('light');
+const scrolled = ref(false);
+
+const onScroll = () => {
+  scrolled.value = window.scrollY > 50;
+};
+
+onMounted(() => window.addEventListener('scroll', onScroll));
+onMounted(() => {
+  updateAppearance('light');
+});
+
+onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
 </script>
 
 <template>
-  <Head title=" | Home" />
+  <Head title="Welcome" />
 
-  <HomeLayout>
-    <!-- Banner Start -->
-    <Banner :userTypes="userTypes" />
-    <!-- Banner End -->
+  <div class="font-noto relative">
+    <Header />
 
-    <!-- About Us Start -->
-    <About />
-    <!-- About Us End -->
+    <div
+      :class="[
+        scrolled ? 'fixed top-2' : 'absolute bottom-0 translate-y-1/2',
+        'right-0 left-0 z-50 px-4 transition-all duration-300 lg:px-6',
+      ]"
+    >
+      <div class="mx-auto max-w-7xl">
+        <Navbar />
+      </div>
+    </div>
+  </div>
 
-    <!-- How It Solutions Start -->
-    <Solutions />
-    <!-- How It Solutions End -->
+  <main class="relative z-0">
+    <Hero />
+    <section id="about" class="scroll-mt-14">
+      <AboutUsCarousel />
+      <AboutUs />
+      <VisionMission />
+    </section>
 
-    <!-- Franchise Start -->
-    <Franchise :userTypes="userTypes" :franchises="franchises" />
-    <!-- Franchise End -->
+    <section id="how-it-works" class="scroll-mt-14">
+      <HowItWorks />
+    </section>
 
-    <!-- Services Start -->
-    <Services />
-    <!-- Services End -->
+    <section id="services" class="scroll-mt-22">
+      <Services />
+    </section>
 
-    <!-- Technology Start -->
-    <Technology />
-    <!-- Technology End -->
+    <section id="driver" class="scroll-mt-5">
+      <Driver :userTypes="userTypes" />
+    </section>
 
-    <!-- Sustainability Start -->
-    <Sustainability />
-    <!-- Sustainability End -->
+    <section id="technician" class="scroll-mt-14">
+      <Technician :userTypes="userTypes" />
+    </section>
 
-    <!-- Partners Start -->
-    <Partners />
-    <!-- Partners End -->
+    <section id="passenger" class="scroll-mt-28">
+      <Passenger :userTypes="userTypes" />
+    </section>
 
-    <!-- Join Start -->
-    <News />
-    <!-- Join End -->
+    <section id="testimonials" class="scroll-mt-14">
+      <Testimonials />
+      <TestimonialsCarousel />
+    </section>
 
-    <!-- Careers Start -->
-    <Careers />
-    <!-- Careers End -->
+    <section id="team" class="scroll-mt-30">
+      <Team />
+    </section>
 
-    <!-- Testimonials Start -->
-    <Testimonials :feedbacks="feedbacks" :userTypes="userTypes" />
-    <!-- Testimonials End -->
+    <section id="contact" class="scroll-mt-20">
+      <Contact />
+    </section>
 
-    <!-- Contact Start -->
-    <Contact />
-    <!-- Contact End-->
+    <QrCode />
+  </main>
 
-    <QRCode />
-  </HomeLayout>
+  <Footer />
 </template>
