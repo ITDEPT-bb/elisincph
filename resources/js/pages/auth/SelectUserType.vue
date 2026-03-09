@@ -25,9 +25,9 @@ usePageTheme('light');
       class="relative w-full max-w-md rounded-2xl bg-white p-4 shadow-2xl sm:p-8"
     >
       <img
-        src="@/assets/epinoy/nav_logo.png"
+        src="@/assets/loginlogo.png"
         alt=""
-        class="mx-auto h-15 w-auto pb-5"
+        class="mx-auto h-14 w-auto pb-5"
       />
 
       <h1 class="text-center text-2xl font-bold text-auth-blue">

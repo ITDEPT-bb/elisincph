@@ -21,6 +21,8 @@ interface FranchiseData {
   region: string;
   province: string;
   city: string;
+  latitude: string;
+  longitude: string;
 }
 
 // UPDATE: Added franchises and userTypes to props
@@ -143,7 +145,7 @@ usePageTheme('light');
       <div class="flex flex-col gap-2">
         <Button
           type="submit"
-          class="text-md mt-2 w-full cursor-pointer bg-auth-blue font-bold text-white hover:bg-auth-blue hover:opacity-80"
+          class="text-md mt-2 w-full cursor-pointer bg-brand-green font-bold hover:bg-brand-green hover:opacity-80"
           :tabindex="4"
           :disabled="processing"
           data-test="login-button"
@@ -154,7 +156,7 @@ usePageTheme('light');
 
         <Button
           asChild
-          class="text-md w-full cursor-pointer bg-brand-red font-bold text-white hover:bg-brand-red hover:opacity-80"
+          class="text-mdw-full cursor-pointer bg-auth-blue font-bold text-white hover:bg-auth-blue hover:opacity-80"
           :tabindex="5"
           :disabled="processing"
         >
@@ -162,15 +164,17 @@ usePageTheme('light');
         </Button>
       </div>
 
-      <div class="pt-1 pb-5 text-center text-sm" v-if="canRegister">
-        Don't have an account?
+      <div class="pt-3 text-center text-sm" v-if="canRegister">
+        If you don't have an account yet, click
         <TextLink
           :href="selectUserType()"
           :tabindex="6"
           class="font-bold text-auth-blue underline underline-offset-1"
         >
-          Register Here
+          Register
         </TextLink>
+
+        to create one and get started.
       </div>
     </Form>
   </AuthBase>
