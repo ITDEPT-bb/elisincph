@@ -3,8 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { CheckIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { Link } from '@inertiajs/vue3';
-import TextLink from '@/components/TextLink.vue';
 
 const props = defineProps<{
   currentStep: number;
@@ -145,7 +143,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="mt-4 flex flex-col gap-4">
     <!-- Buttons -->
     <div class="flex gap-3">
       <Button
@@ -183,17 +181,8 @@ onBeforeUnmount(() => {
       </Button>
     </div>
 
-    <Button
-      asChild
-      class="text-md w-full cursor-pointer bg-brand-red font-bold text-white hover:bg-brand-red hover:opacity-80"
-      :tabindex="5"
-      :disabled="processing"
-    >
-      <Link href="/"> RETURN HOME </Link>
-    </Button>
-
     <!-- Progress Bar -->
-    <div class="mt-2 h-2 w-full rounded-full bg-gray-200">
+    <div class="h-2 w-full rounded-full bg-gray-200">
       <div
         class="h-2 rounded-full bg-auth-blue transition-all duration-300"
         :style="{ width: `${(props.currentStep / props.totalSteps) * 100}%` }"
@@ -221,16 +210,6 @@ onBeforeUnmount(() => {
           <span v-else>{{ step }}</span>
         </div>
       </button>
-    </div>
-
-    <div class="pt-1 pb-8 text-center text-sm">
-      Already have an account?
-      <TextLink
-        href="/login"
-        class="font-bold text-auth-blue underline underline-offset-4 hover:text-brand-blue"
-      >
-        Log in
-      </TextLink>
     </div>
   </div>
 </template>

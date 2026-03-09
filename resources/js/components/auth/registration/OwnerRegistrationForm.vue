@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useAddress } from '@/composables/useAddress';
 import AuthBase from '@/layouts/AuthLayout.vue';
+import { login } from '@/routes';
 import { store } from '@/routes/register';
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, Link } from '@inertiajs/vue3';
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import MultiStepFooter from './step/MultiStepFooter.vue';
 import Step1Personal from './step/Step1Personal.vue';
@@ -255,12 +256,12 @@ watch(
       </div>
 
       <!-- Step 5: Uploads -->
-      <div v-show="currentStep === 5" class="space-y-4" data-step="5">
+      <div v-show="currentStep === 5" class="space-y-4" data-step="6">
         <Step5Uploads :errors="errors" :show-fields="documentsStep5Show" />
       </div>
 
       <!-- Step 6: Security -->
-      <div v-show="currentStep === 6" class="space-y-4" data-step="6">
+      <div v-show="currentStep === 6" class="space-y-4" data-step="7">
         <Step6Security
           :errors="errors"
           :labels="securityStep6Labels"
@@ -280,5 +281,17 @@ watch(
         @submit="$event.target.closest('form')?.submit()"
       />
     </Form>
+
+    <div class="mt-4 text-center">
+      <div class="text-sm text-muted-foreground">
+        Already have an account?
+        <Link
+          :href="login()"
+          class="text-auth-blue underline underline-offset-4"
+        >
+          Log in
+        </Link>
+      </div>
+    </div>
   </AuthBase>
 </template>

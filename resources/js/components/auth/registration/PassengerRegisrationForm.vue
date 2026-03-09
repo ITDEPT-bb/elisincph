@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useAddress } from '@/composables/useAddress';
 import AuthBase from '@/layouts/AuthLayout.vue';
+import { login } from '@/routes';
 import { store } from '@/routes/register';
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, Link } from '@inertiajs/vue3';
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import MultiStepFooter from './step/MultiStepFooter.vue';
 import Step1Personal from './step/Step1Personal.vue';
@@ -146,7 +147,7 @@ watch(
 
       <input type="hidden" name="user_type_id" :value="userType.encrypted_id" />
       <!-- Step Title -->
-      <h1 class="text-center text-lg font-black text-auth-blue">
+      <h1 class="text-center text-2xl font-black text-auth-blue">
         {{ stepTitles[currentStep] }}
       </h1>
 
@@ -193,5 +194,17 @@ watch(
         @submit="$event.target.closest('form')?.submit()"
       />
     </Form>
+
+    <div class="mt-4 text-center">
+      <div class="text-sm text-muted-foreground">
+        Already have an account?
+        <Link
+          :href="login()"
+          class="text-auth-blue underline underline-offset-4"
+        >
+          Log in
+        </Link>
+      </div>
+    </div>
   </AuthBase>
 </template>

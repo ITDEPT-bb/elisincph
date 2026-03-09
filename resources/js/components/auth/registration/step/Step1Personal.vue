@@ -137,7 +137,7 @@ const calculatedAge = computed(() => {
 <template>
   <!-- User Name -->
   <div v-if="show.userName" class="grid gap-2">
-    <Label :for="fields.userName" class="font-semibold text-brand-blue">{{
+    <Label :for="fields.userName" class="font-semibold text-auth-blue">{{
       labels.userName
     }}</Label>
     <div
